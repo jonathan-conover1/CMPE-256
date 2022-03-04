@@ -61,7 +61,8 @@ options = {
 }
 
 fig = plt.figure(1, figsize=(20, 10), dpi=90)
-nx.draw_kamada_kawai(all_inter_graphs["starwars-episode-6-interactions"], **options)
+nx.draw_kamada_kawai(all_inter_graphs["starwars-episode-1-interactions"], **options)
+
 
 # %%
 
@@ -80,7 +81,7 @@ def sim_rank_pd(graph1):
     
 
 # %%
-sim_rank = sim_rank_pd(all_inter_graphs["starwars-episode-2-interactions"])
+sim_rank = sim_rank_pd(all_inter_graphs["starwars-episode-1-interactions"])
 sim_rank
 
 # %%
@@ -93,7 +94,7 @@ sim_rank
 # %%
 from sklearn.cluster import KMeans
 
-clust = KMeans(n_clusters=5).fit(sim_rank)
+clust = KMeans(n_clusters=9).fit(sim_rank)
 
 clusters = {}
 for i in range(len(clust.labels_)):
@@ -106,5 +107,7 @@ for i in range(len(clust.labels_)):
 for i in clusters:
     print('cluster',i)
     print(clusters[i])
+
+
 
 # %%

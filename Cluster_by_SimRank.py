@@ -1,6 +1,5 @@
 #%%
 # Imports here | some to be used later
-from cmath import exp
 from datetime import date
 import numpy as np
 import os
@@ -9,7 +8,9 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from pathlib import Path
 import pandas as pd
-from scipy.spatial.distance import cosine
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import normalize
 #%% 
 all_star_wars = {}
 movies = Path('data/')
@@ -49,21 +50,6 @@ print("Number of Edges: {}".format(all_inter_graphs["starwars-episode-6-interact
 print("Luke: {}".format(all_inter_graphs["starwars-episode-6-interactions"].nodes['LUKE']['Amount of Scences']))
 
 
-
-# %%
-
-# Visualize the graph connections
-options = {
-    'node_color': 'green',
-    'node_size': 100,
-    'width': 1,
-    'with_labels': True
-}
-
-fig = plt.figure(1, figsize=(20, 10), dpi=90)
-nx.draw_kamada_kawai(all_inter_graphs["starwars-episode-1-interactions"], **options)
-
-
 # %%
 
 def sim_rank_pd(graph1):
@@ -78,23 +64,14 @@ def sim_rank_pd(graph1):
     return sim_rank_pd
     
 
-    
-
 # %%
-sim_rank = sim_rank_pd(all_inter_graphs["starwars-episode-1-interactions"])
+graph = all_inter_graphs["starwars-episode-4-interactions-allCharacters"]
+k = 9
+
+sim_rank = sim_rank_pd(graph)
 sim_rank
 
-# %%
-from sklearn.preprocessing import MinMaxScaler
-norm = MinMaxScaler()
-
-
-sim_rank[:] = norm.fit_transform(sim_rank[:])
-sim_rank
-# %%
-from sklearn.cluster import KMeans
-
-clust = KMeans(n_clusters=9).fit(sim_rank)
+clust = KMeans(n_clusters=k).fit(sim_rank)
 
 clusters = {}
 for i in range(len(clust.labels_)):
@@ -103,10 +80,34 @@ for i in range(len(clust.labels_)):
     except:
         clusters[clust.labels_[i]] = [sim_rank.columns.values[i]]
     
-# %%
 for i in clusters:
     print('cluster',i)
     print(clusters[i])
+
+# %%
+## Cluster with MinMax preprocessing
+
+min_max = MinMaxScaler()
+
+
+sim_rank[:] = min_max.fit_transform(sim_rank[:])
+sim_rank
+
+
+clust = KMeans(n_clusters=k).fit(sim_rank)
+
+clusters = {}
+for i in range(len(clust.labels_)):
+    try:
+        clusters[clust.labels_[i]].append(sim_rank.columns.values[i])
+    except:
+        clusters[clust.labels_[i]] = [sim_rank.columns.values[i]]
+    
+for i in clusters:
+    print('cluster',i)
+    print(clusters[i])
+
+
 
 
 

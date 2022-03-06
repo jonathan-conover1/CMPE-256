@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 #%%
 # load the json file and verify contents
-with open('./data/starwars-episode-4-interactions-allCharacters.json') as f:
+with open('./data/starwars-episode-4-interactions.json') as f:
     data = json.load(f)
 
 print(data['nodes'][0])
@@ -80,7 +80,7 @@ def BarGraphData(data: list, title: str, x_label: str, y_lable: str):
 
 # %%
 # Degree 
-print(sw_ep4_graph.degree["LUKE"])
+print(sw_ep4_graph.degree["OBI-WAN"])
 degree = sorted(sw_ep4_graph.degree, key=lambda x: x[1], reverse=True)
 
 # Lets see it
@@ -89,7 +89,7 @@ BarGraphData(degree, "Degree", "Characters", "Degree Values")
 # %%
 # Page Ranks
 page_ranks = nx.pagerank(sw_ep4_graph) # A dictionary
-print(page_ranks["LUKE"])
+print(page_ranks["OBI-WAN"])
 ranks = sorted(page_ranks.items(), key=lambda x: x[1], reverse=True)
 
 # Lets see it

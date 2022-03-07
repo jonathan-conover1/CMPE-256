@@ -205,3 +205,35 @@ gpr2 = np.where(thrid_vector > 0)
 for arr in gpr2[0]:
     print(char_list[arr])
 # %%
+
+for i in range(21):
+    #19, 16, 15
+    plt.plot(e_v[:, i], linestyle='--', marker='o')
+    #plt.xlim([0, 20])  
+    #plt.ylim([0, 20])  
+    plt.xticks(range(0, 21, 1))
+    #plt.yticks(range(0, 21, 1))  
+    plt.title('eigenvector: {}'.format(i))
+    plt.axhline(0, color='r')
+    plt.show()
+
+# %%
+
+def eigenGap(e):
+    gap = []
+    for i in range(len(e) - 1):
+        gap.append(abs(e[i] - e[i+1]))
+    return gap
+
+e_gap = eigenGap(e)
+
+# %%
+plt.plot(e_gap, linestyle='--', marker='o')
+plt.xlim([0, 20])  
+#plt.ylim([0, 20])  
+plt.xticks(range(0, 21, 1))
+#plt.yticks(range(0, 21, 1))  
+plt.title('eigen gap')
+plt.axhline(0, color='r')
+plt.show()
+# %%

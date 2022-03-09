@@ -65,11 +65,12 @@ def sim_rank_pd(graph1):
     
 
 # %%
+# Initial cluster without normalization
 graph = all_inter_graphs["starwars-episode-4-interactions-allCharacters"]
-k = 9
+k = 7
 
 sim_rank = sim_rank_pd(graph)
-sim_rank
+print(sim_rank)
 
 clust = KMeans(n_clusters=k).fit(sim_rank)
 
@@ -108,7 +109,7 @@ for i in clusters:
     print(clusters[i])
 
 
-
+print(graph.nodes)
 
 
 # %%

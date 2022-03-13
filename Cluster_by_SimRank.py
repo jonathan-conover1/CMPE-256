@@ -39,7 +39,10 @@ for key in all_star_wars.keys():
             holistic_interaction.add_edge(all_star_wars[key]['nodes'][edge['source']]['name'], 
                                         all_star_wars[key]['nodes'][edge['target']]['name'],
                                         weight=edge['value'] )
-
+    try:
+        holistic_interaction.remove_node("GOLD FIVE")
+    except:
+        pass
     all_inter_graphs[key] = holistic_interaction
 
 
@@ -66,12 +69,10 @@ def sim_rank_pd(graph1):
 
 # %%
 # Initial cluster without normalization
-graph = all_inter_graphs["starwars-episode-4-interactions-allCharacters"]
+graph = all_inter_graphs["starwars-episode-6-interactions-allCharacters"]
 k = 7
 
 sim_rank = sim_rank_pd(graph)
-print(sim_rank)
-
 clust = KMeans(n_clusters=k).fit(sim_rank)
 
 clusters = {}
@@ -109,7 +110,6 @@ for i in clusters:
     print(clusters[i])
 
 
-print(graph.nodes)
 
 
 # %%

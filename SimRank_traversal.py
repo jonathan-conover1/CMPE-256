@@ -51,7 +51,10 @@ for key in all_star_wars.keys():
 
             holistic_interaction.add_edge(src_name,dest_name,weight=edge['value'])
         
-                
+    try:
+        holistic_interaction.remove_node("GOLD FIVE")
+    except:
+        pass
         
 
     inter_graphs[key] = holistic_interaction
@@ -85,7 +88,7 @@ def sim_rank_pd(who,ignore):
 
 # %%
 sim_rank_by_movie = sim_rank_pd('ANAKIN/VADER','starwars-episode-7-interactions')
-print(sim_rank_by_movie["starwars-episode-5-interactions"])
+print(sim_rank_by_movie["starwars-episode-4-interactions"])
 
 
 # %%

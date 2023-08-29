@@ -28,6 +28,6 @@ Step 5: Evaluate which factors/trends had the greatest impact on Network connect
 
 Data Set
 ------------
-[Star Wars Social Networkt](https://www.kaggle.com/ruchi798/star-wars)  
+[Star Wars Social Network](https://www.kaggle.com/ruchi798/star-wars)  
 [Download Link](https://www.kaggle.com/ruchi798/star-wars/download)
 =======
